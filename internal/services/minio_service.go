@@ -78,7 +78,7 @@ func GetMinIOService() (*MinIOService, error) {
 	} else {
 		log.Printf("Bucket %s exists and is accessible", config.MinIOBucketName)
 	}
-	
+
 	// 无论检查或创建是否成功，都继续初始化服务
 	// 如果存储桶实际不存在，会在上传时失败并给出明确错误
 

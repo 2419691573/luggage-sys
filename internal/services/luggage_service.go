@@ -34,22 +34,22 @@ type CreateLuggageRequest struct {
 	StaffName    string        `json:"staff_name"`
 	ContactPhone string        `json:"contact_phone"`
 	ContactEmail string        `json:"contact_email"`
-	Description  string        `json:"description"`  // 单件模式
-	Quantity     int           `json:"quantity"`     // 单件模式
+	Description  string        `json:"description"`   // 单件模式
+	Quantity     int           `json:"quantity"`      // 单件模式
 	SpecialNotes string        `json:"special_notes"` // 单件模式
-	PhotoURLs    []string      `json:"photo_urls"`   // 单件模式
-	PhotoURL     string        `json:"photo_url"`    // 单件模式
-	StoreroomID  uint          `json:"storeroom_id"` // 单件模式（多件模式时不需要）
-	Items        []LuggageItem `json:"items"`        // 多件模式
+	PhotoURLs    []string      `json:"photo_urls"`    // 单件模式
+	PhotoURL     string        `json:"photo_url"`     // 单件模式
+	StoreroomID  uint          `json:"storeroom_id"`  // 单件模式（多件模式时不需要）
+	Items        []LuggageItem `json:"items"`         // 多件模式
 }
 
 type UpdateLuggageRequest struct {
-	GuestName    string `json:"guest_name"`
-	ContactPhone string `json:"contact_phone"`
-	Description  string `json:"description"`
-	SpecialNotes string `json:"special_notes"`
+	GuestName    string   `json:"guest_name"`
+	ContactPhone string   `json:"contact_phone"`
+	Description  string   `json:"description"`
+	SpecialNotes string   `json:"special_notes"`
 	PhotoURLs    []string `json:"photo_urls"`
-	PhotoURL     string `json:"photo_url"`
+	PhotoURL     string   `json:"photo_url"`
 }
 
 // generateUniqueRetrievalCode 生成唯一的取件码（检查数据库中是否已存在）
@@ -195,12 +195,12 @@ func (s *LuggageService) CreateLuggage(req CreateLuggageRequest, hotelID uint) (
 			}
 		}
 
-			// 提交事务
-			if err := tx.Commit().Error; err != nil {
-				return nil, "", err
-			}
+		// 提交事务
+		if err := tx.Commit().Error; err != nil {
+			return nil, "", err
+		}
 
-			return firstLuggage, retrievalCode, nil
+		return firstLuggage, retrievalCode, nil
 	} else {
 		// 单件模式：原有逻辑
 		// 验证单件模式必填字段
